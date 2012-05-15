@@ -1,0 +1,15 @@
+<ext4:fragment onBeforeRender="SaveEpisode^LeedsPort">
+	<ext4:js at="bottom">
+		Ext.getCmp('<?= #EdDispWin ?>').hide();
+		Ext.getCmp('EPFormPanel').destroy();
+		at=Ext.getCmp('CentrePanel').getActiveTab();
+		if (at!=null) at=at.id;
+		nvp='ext4_removeAll=true&ext4_addTo=CentrePanel'; EWD.ajax.getPage({page:'patGrid',nvp:nvp});
+		if (at=="patDetGrid") {
+			nvp='ext4_addTo=CentrePanel'; EWD.ajax.getPage({page:'gridCl',nvp:nvp})
+		}
+
+	</ext4:js>
+
+	<ext4:panel  html="Episode saved" />
+</ext4:fragment>

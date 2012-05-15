@@ -1,0 +1,38 @@
+<ext4:fragment onBeforeRender="InitNote^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('NOFormPanel')!=undefined) {Ext.getCmp('NOFormPanel').destroy();};
+</ext4:js>
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('NOFormPanel').setTitle('Display Clinical Note');
+		Ext.getCmp('NOdate').setReadOnly(true);Ext.getCmp('NOdate').setFieldStyle('color:blue');
+		Ext.getCmp('NOtime').setReadOnly(true);Ext.getCmp('NOtime').setFieldStyle('color:blue');
+		Ext.getCmp('NOnote').setReadOnly(true);Ext.getCmp('NOnote').setFieldStyle('color:blue');
+		Ext.getCmp('NOauth').setReadOnly(true);Ext.getCmp('NOauth').setFieldStyle('color:blue');
+		Ext.getCmp('subBsaveNote').hide();
+	}
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+
+</ext4:js>
+<ext4:formPanel id="NOFormPanel" title="Add Clinical Note"  bodyPadding="10">
+	<ext4:fieldset  title="Patient Details" collapsible="false">
+		<ext4:fieldDefaults labelWidth="120"/>
+		<ext4:displayfield id="CPpatFN" fieldLabel="Patient FirstName" value="*" />
+		<ext4:displayfield id="CPpatLN" fieldLabel="Patient Surname" value="*" />
+		<ext4:displayfield id="CPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+		<ext4:displayfield id="CPepNO" fieldlabel="Episode" width="150" value="*"/>
+	</ext4:fieldset>
+	<ext4:displayfield id="NOID" fieldLabel="Note Number" width="150" value="*"/>
+    <ext4:field type="datefield" id="NOdate" fieldLabel="Date" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" id="NOtime" fieldLabel="Time" width="200" value="*" format="24Hour" />
+    <ext4:textareafield grow="true" fieldLabel="Clinical Note" name="NOnote"  width="350" height="200" value="*" />
+	<ext4:textfield id="NOauth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton id="subBsaveNote" text="Save" nextPage="SaveNote" addTo="SouthPanel" />
+
+</ext4:formPanel>
+</ext4:fragment>

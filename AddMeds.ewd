@@ -1,0 +1,38 @@
+<ext4:fragment onBeforeRender="InitMed^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('MEFormPanel')!=undefined) {Ext.getCmp('MEFormPanel').destroy();};
+</ext4:js>
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('MEFormPanel').setTitle('Display Medication');
+		Ext.getCmp('MEdate').setReadOnly(true);Ext.getCmp('MEdate').setFieldStyle('color:blue');
+		Ext.getCmp('MEtime').setReadOnly(true);Ext.getCmp('MEtime').setFieldStyle('color:blue');
+		Ext.getCmp('MEnote').setReadOnly(true);Ext.getCmp('MEnote').setFieldStyle('color:blue');
+		Ext.getCmp('MEauth').setReadOnly(true);Ext.getCmp('MEauth').setFieldStyle('color:blue');
+		Ext.getCmp('subBsaveMed').hide();
+	}
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+
+</ext4:js>
+<ext4:formPanel id="MEFormPanel" title="Add Medication"  bodyPadding="10">
+	<ext4:fieldset  title="Patient Details" collapsible="false">
+		<ext4:fieldDefaults labelWidth="120"/>
+		<ext4:displayfield id="CPpatFN" fieldLabel="Patient FirstName" value="*" />
+		<ext4:displayfield id="CPpatLN" fieldLabel="Patient Surname" value="*" />
+		<ext4:displayfield id="CPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+		<ext4:displayfield id="CPepNO" fieldlabel="Episode" width="150" value="*"/>
+	</ext4:fieldset>
+	<ext4:displayfield id="MEID" fieldLabel="Medication Number" width="150" value="*"/>
+    <ext4:field type="datefield" id="MEdate" fieldLabel="Date" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" id="MEtime" fieldLabel="Time" width="200" value="*" format="24Hour" />
+    <ext4:textareafield grow="true" fieldLabel="Medication" name="MEnote"  width="350" height="200" value="*" />
+	<ext4:textfield id="MEauth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton id="subBsaveMed" text="Save" nextPage="SaveMeds" addTo="SouthPanel" />
+
+</ext4:formPanel>
+</ext4:fragment>

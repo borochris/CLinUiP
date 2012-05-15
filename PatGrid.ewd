@@ -1,0 +1,17 @@
+<ext4:fragment onBeforeRender="InitPatGrid^LeedsPort">
+<ext4:js at="bottom">
+	Ext.getCmp('selectTree2').enable();Ext.getCmp('selectTree2').show();
+	Ext.getCmp('EastPanel').hide();
+</ext4:js>
+	<ext4:gridPanel title="Patients" id="patGrid" storeId="patGridStore" frame="false" height="100%" width="100%" sessionName="patGrid" columnDefinition="patGridcolDef" >
+		<ext4:toolbar >
+		<ext4:button text="Add patient" nextPage="CreatePatient" addTo=#EdDispWin replacePreviousPage="true" />
+		</ext4:toolbar>
+		<ext4:viewConfig>
+			<ext4:listeners>
+			<ext4:listener cellmousedown="function(view,cell,cellIdx,record,row,rowIdx,eOpts) {var c=view.headerCt.items.getAt(cellIdx).dataIndex;var nvp0='rowNo=' + record.get('zewdRowNo')+'&col='+c+'&f=ec&g=pg';if (c=='notes'||c=='episodes'||c=='vitals'||c=='orders'||c=='results'||c=='treatments'||c=='meds') {nvp=nvp0+'&ext4_addTo=CentrePanel'; EWD.ajax.getPage({page:'gridCL',nvp:nvp});};nvp=nvp0+'&ext4_addTo=NorthPanel&ext4_removeAll=true'; EWD.ajax.getPage({page:'gotPatient',nvp:nvp});Ext.getCmp('EastPanel').hide();}" />
+			<ext4:listener afterrender="function() {var myfilter='<?=#doPFilter ?>';if (myfilter!=='') { patGridStore.filter({filterFn: function(item) {return eval(myfilter);}});}}" />
+			</ext4:listeners>
+		</ext4:viewConfig>
+	</ext4:gridPanel>
+</ext4:fragment>

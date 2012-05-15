@@ -1,0 +1,29 @@
+<ext4:fragment onBeforeRender="procGrid^LeedsPort">
+
+<ext4:js at="bottom">
+	Ext.getCmp('selectTree').enable();Ext.getCmp('selectTree').show();Ext.getCmp('selectTree2').hide();
+	Ext.getCmp('CentrePanel').setActiveTab('patDetGrid');
+	Ext.getCmp('CentrePanel').addListener('tabchange',function(tab,newc,oldc,obj) {if (oldc.id=='patDetGrid') {Ext.getCmp('patDetGrid').destroy();Ext.getCmp('selectTree').hide();Ext.getCmp('selectTree2').show();Ext.getCmp('EastPanel').hide();Ext.getCmp('CentrePanel').events['tabchange'].clearListeners();};});
+	Ext.getCmp('EastPanel').hide();
+	</ext4:js>
+<ext4:gridPanel title="Patient Details" id="patDetGrid" selType="rowmodel" storeId="patDetGridStore" grouping="true" frame="false" height="100%" width="100%" sessionName="patDetGrid" columnDefinition="patDetGridcolDef">
+	<ext4:toolbar>
+		<ext4:button id="btnAdde" text="Add Episode" nextPage="AddEpisode" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddm" text="Add Medication" nextPage="AddMeds" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddn" text="Add Note" nextPage="AddNote" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddo" text="Add Order" nextPage="AddOrders" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddr" text="Add Result" nextPage="AddResults" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddt" text="Add Treatment" nextPage="Addtreatments" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+		<ext4:button id="btnAddv" text="Add Vitals" nextPage="AddVitals" addTo=#EdDispWin replacePreviousPage="true" hidden="true"/>
+	</ext4:toolbar>
+	<ext4:features>
+		<ext4:item id="group" ftype="groupingsummary" groupheaderTpl="Episode No {name}" startCollapsed="true"/>
+	</ext4:features>
+
+	<ext4:listeners>
+		<ext4:listener afterrender="function() {var myfilter='<?=#doFilter ?>';var shb='<?=#showbut ?>';if (myfilter!=='') {Ext.getCmp('patDetGrid').view.features[0].disable(); patDetGridStore.filter('data',myfilter);}; if (shb!='') {Ext.getCmp(shb).show();}}" />
+		<ext4:listener select="function(sm, record,x,y) {var nvp='rowNo='+record.get('zewdRowNo')+'&ixn='+record.get('itemID')+'&EditMode=true&f=ec&g=clg&ext4_addTo=EastPanel&ext4_removeAll=true'; EWD.ajax.getPage({page:record.get('page'),nvp:nvp});}" />
+	</ext4:listeners>
+
+</ext4:gridPanel>
+</ext4:fragment>

@@ -1,0 +1,31 @@
+<ext4:fragment onBeforeRender="InitCrPat^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('CLFormPanel')!=undefined) {Ext.getCmp('CLFormPanel').destroy();};
+</ext4:js>
+
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('CLFormPanel').setTitle('Edit patient Details');
+		};
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+
+
+</ext4:js>
+<ext4:formPanel id="CLFormPanel" title="Add Patient"  bodyPadding="10">
+	<ext4:fieldDefaults labelWidth="120" width="350"/>
+    <ext4:textfield id="CPpatFN" fieldLabel="Patient FirstName" allowBlank="false" value="*" />
+    <ext4:textfield id="CPpatLN" fieldLabel="patient Surname" allowBlank="false" value="*" />
+	<ext4:textfield id="CPpatID" fieldLabel="patient Identifier" width="250" allowBlank="false" value="*" readonly="true"/>
+	<ext4:textareafield grow="true" id="CPpatAdd" width="350" fieldLabel="Address"  value="*" />
+    <ext4:field type="datefield" id="CPpatDOB" fieldLabel="DOB" width="300" value="*" format="d/m/Y" />
+    <ext4:comboBox fieldLabel="Sex" name="sex" forceSelection="true" width="300" value="*" />
+	<ext4:textfield id="CPpatAuth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton text="Save" nextPage="SavePatient" addTo="SouthPanel" replacePreviousPage="true" />
+
+</ext4:formPanel>
+</ext4:fragment>

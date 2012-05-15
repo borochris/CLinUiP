@@ -1,0 +1,14 @@
+<ext4:fragment onBeforeRender="gotPatient^LeedsPort">
+<ext4:formPanel id="myPatPanel" title=""  bodyPadding="10">
+		<ext4:layout type="hbox" pack="center" align="middle" />
+
+	<ext4:fieldcontainer layout="hbox" >
+		<ext4:defaults style="color:blue; font-size:large;"/>
+		<ext4:displayfield id="MPpatFN" fieldLabel="Patient FirstName" value="*" width="200"/>
+		<ext4:displayfield id="MPpatLN" fieldLabel="Patient Surname" value="*" width="200"/>
+		<ext4:displayfield id="MPpatDOB" fieldlabel="Date of Birth" value="*" width="250"/>
+		<ext4:displayfield id="MPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+
+	</ext:fieldcontainer>
+</ext4:formPanel>
+</ext4:fragment>

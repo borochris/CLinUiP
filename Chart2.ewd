@@ -1,0 +1,119 @@
+<ext4:fragment onBeforeRender="loadChart2^LeedsPort">
+<ext4:js at="top">
+	Ext.getCmp('selectTree').hide();Ext.getCmp('selectTree2').hide();
+</ext4:js>
+
+	<ext4:panel id="chartview" height="100%" width="100%" border="true" >
+	
+	</ext4:panel>
+<ext4:js at="bottom">
+	Ext.require(['Ext.chart.*', 'Ext.chart.axis.*', 'Ext.chart.series.*']);
+	var store1 = Ext.create('Ext.data.Store', {
+	fields: ['name','data1','data2','data3','data4','data5'],
+	data: storeobj});
+	
+	Ext.create('Ext.Panel', {
+		id: 'mychartpnl',
+        width: 800,
+        height: 400,
+        minWidth: 500,
+        minHeight: 225,
+		deferredRender: false,
+		flex: 1,
+		defaults:{hideMode: 'offsets'},
+        title: 'Patients By Age',
+        
+        layout: {
+            type: 'hbox',
+            align: 'stretch'
+        },
+        items: [{
+            xtype: 'chart',
+			id: 'cichart',
+            style: 'background:#fff',
+            animate: {
+                easing: 'elasticIn',
+                duration: 1000
+            },
+            store: store1,
+            insetPadding: 0,
+			hideMode: 'offsets',
+            flex: 1,
+            axes: [{
+				id: 'cichartaxe',
+				title: 'Total',
+				type: 'Numeric',
+				position: 'left',
+				minimum: 0,
+				roundMajorUnit: true,
+				majorUnit : 2,
+				minorUnit : 1,
+				snapToUnits: true,
+				decimals: 0,
+				majorTickSteps: 1,
+				minorTickSteps: 0,
+				adjustMinimumByMajorUnit: 0,
+				fields: ['data1'],
+                    },{
+				type: 'Category',
+				position: 'bottom',
+				fields: ['name'],
+				title: 'Age'
+				}
+				],
+            series: [{
+			
+                type: 'bar',
+				column: true,
+				axis: 'left',
+				xfield: 'name',
+				yField: 'data1',
+				
+				renderer: function(sprite, record, attr, index, store) {
+                    var fieldValue = Math.random() * 20 + 10;
+                    var value = (record.get('data1') >> 0) % 5;
+                    var color = ['rgb(213, 70, 121)', 
+                                 'rgb(44, 153, 201)', 
+                                 'rgb(146, 6, 157)', 
+                                 'rgb(49, 149, 0)', 
+                                 'rgb(249, 153, 0)'][value];
+                    return Ext.apply(attr, {
+                        fill: color
+                    });
+				},
+				
+				listeners:{
+					itemmousedown : function(obj) {
+							nvp='ext4_addTo=CentrePanel&ext4_removeAll=true';
+						if (obj.storeItem.data['name']=='0-10') {
+							nvp=nvp+'&doPFilter=item.get("age")|11|lt';
+						};
+						if (obj.storeItem.data['name']=='11-18') {
+							nvp=nvp+'&doPFilter=item.get("age")|10|gt|lt|19';
+						};
+						if (obj.storeItem.data['name']=='19-30') {
+							nvp=nvp+'&doPFilter=item.get("age")|18|gt|lt|31';
+						};
+						if (obj.storeItem.data['name']=='31-60') {
+							nvp=nvp+'&doPFilter=item.get("age")|30|gt|lt|61';
+						};
+						if (obj.storeItem.data['name']=='61-80') {
+							nvp=nvp+'&doPFilter=item.get("age")|60|gt|lt|81';
+						};
+						if (obj.storeItem.data['name']=='>80') {
+							nvp=nvp+'&doPFilter=item.get("age")|80|gt';
+						};
+						EWD.ajax.getPage({page:'PatGrid',nvp:nvp});
+					}
+				}
+            }]
+        },
+		
+				]
+    });
+	Ext.getCmp('chartview').add(Ext.getCmp('mychartpnl'));
+    
+
+</ext4:js>
+<ext4:json sessionName="chart2" return="storeobj" var="true" />
+</ext4:fragment>

@@ -1,0 +1,39 @@
+<ext4:fragment onBeforeRender="InitOrder^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('ORFormPanel')!=undefined) {Ext.getCmp('ORFormPanel').destroy();};
+</ext4:js>
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('ORFormPanel').setTitle('Display Order');
+		Ext.getCmp('ORdate').setReadOnly(true);Ext.getCmp('ORdate').setFieldStyle('color:blue');
+		Ext.getCmp('ORtime').setReadOnly(true);Ext.getCmp('ORtime').setFieldStyle('color:blue');
+		Ext.getCmp('ORtype').setReadOnly(true);Ext.getCmp('ORtype').setFieldStyle('color:blue');
+		Ext.getCmp('ORnote').setReadOnly(true);Ext.getCmp('ORnote').setFieldStyle('color:blue');
+		Ext.getCmp('ORauth').setReadOnly(true); Ext.getCmp('ORauth').setFieldStyle('color:blue');
+		Ext.getCmp('subBsaveOrder').hide();
+	}
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+</ext4:js>
+<ext4:formPanel id="ORFormPanel" title="Add Orders"  bodyPadding="10">
+	<ext4:fieldset  title="Patient Details" collapsible="false">
+		<ext4:fieldDefaults labelWidth="120"/>
+		<ext4:displayfield id="CPpatFN" fieldLabel="Patient FirstName" value="*" />
+		<ext4:displayfield id="CPpatLN" fieldLabel="Patient Surname" value="*" />
+		<ext4:displayfield id="CPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+		<ext4:displayfield id="CPepNO" fieldlabel="Episode" width="150" value="*"/>
+	</ext4:fieldset>
+	<ext4:displayfield id="ORID" fieldLabel="Order Number" width="150" value="*"/>
+    <ext4:field type="datefield" id="ORdate" fieldLabel="Date" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" id="ORtime" fieldLabel="Time" width="200" value="*" format="24Hour" />
+	<ext4:comboBox fieldLabel="Type" name="ORtype" multiSelect="true" grow="true" editable="false" value="*" width="350" name="ORtype"/>
+    <ext4:textareafield grow="true" fieldLabel="Comments" name="ORnote"  width="350"  value="*" />
+	<ext4:textfield id="ORauth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton id="subBsaveOrder" text="Save" nextPage="SaveOrders" addTo="SouthPanel" />
+
+</ext4:formPanel>
+</ext4:fragment>

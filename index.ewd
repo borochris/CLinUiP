@@ -1,0 +1,40 @@
+<ext4:container rootPath="/ext4" title="CLinUiP" onBeforeRender="Init^LeedsPort">
+<script src="/ext4/examples/ux/grid/FiltersFeature.js" />
+<script>
+	var EdDispWin='<?= #EdDispWin ?>' ;
+</script>
+
+<ext4:viewport layout="border">
+<ext4:panel region="north" id="NorthPanel" title="Welcome to CLinUiP" titleAlign="center" height="100" border="false" margins="0 0 1 0">
+<ext4:paneltool type="help" handler=".function() {alert('help text not available at this time')}"/>
+	<ext4:toolbar >
+	<ext4:fill/>
+        <ext4:button text="About" />
+      </ext4:toolbar>
+</ext4:panel>
+
+<ext4:panel id="WestPanel" region="west" collapsed="false" border="false" collapsible="false" split="true" width="170" >
+		<ext4:treepanel id="ReportTree" expandedTree="true" title="Views"  height="300" sessionName="TreeOpts"  >
+		</ext4:treepanel>
+		<ext4:treepanel id="selectTree" expandedTree="true" title="Filters" height="100%" sessionname="TreeSels" disabled="true" hidden="true">
+			<ext4:listeners>
+				<ext4:listener itemClick="function(view,record) {if (record.raw.nvp!=='') {Ext.getCmp('patDetGrid').view.features[0].disable(); patDetGridStore.clearFilter();patDetGridStore.filter('data',record.raw.nvp);x=record.raw.nvp.substr(0,1).toLowerCase();if (x=='c') {x='n'};Ext.getCmp('btnAdd'+x).show();}}" />
+			</ext4:listeners>
+		</ext4:treepanel>
+		<ext4:treepanel id="selectTree2" expandedTree="true" title="Filters" height="100%" sessionname="TreeSels2" disabled="true" hidden="true">
+			<ext4:listeners>
+				<ext4:listener itemClick="function(view,record) {if (record.raw.nvp!=='') {patGridStore.clearFilter();patGridStore.filter({filterFn: function(item) {return eval(record.raw.nvp);}})}}" />
+			</ext4:listeners>
+		</ext4:treepanel>
+
+</ext4:panel>
+
+<ext4:panel region="east" id="EastPanel" title="" collapsed="false" border="false" collapsible="false" split="true" width="380" hidden="true"/>
+<ext4:tabpanel region="center" id="CentrePanel" title="" border="false" width="1100">
+	<ext4:listeners>
+		<ext4:listener afterrender="function() {nvp='ext4_addTo=CentrePanel'; EWD.ajax.getPage({page:'Chart',nvp:nvp});}" />
+	</ext4:listeners>
+</ext4:tabpanel>
+<ext4:panel region="south"  id="SouthPanel" title="" collapsed="false" collapsible="false" split="true" height="50"  />
+<ext4:modalwindow id="editMWin" closeAction="hide" title="Edit Window" height="600" width="500" layout="fit" autoShow="false" />
+</ext4:viewport>

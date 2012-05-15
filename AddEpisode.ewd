@@ -1,0 +1,47 @@
+<ext4:fragment onBeforeRender="InitAddEp^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('MEFormPanel')!=undefined) {Ext.getCmp('MEFormPanel').destroy();};
+</ext4:js>
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EPFormPanel').setTitle('Edit Episode');
+		Ext.getCmp('EPdate').setReadOnly(true);Ext.getCmp('EPdate').setFieldStyle('color:blue');
+		Ext.getCmp('EPtime').setReadOnly(true);Ext.getCmp('EPtime').setFieldStyle('color:blue');
+		Ext.getCmp('EPtype').setReadOnly(true);Ext.getCmp('EPtype').setFieldStyle('color:blue');
+	}
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+
+</ext4:js>
+<ext4:formPanel id="EPFormPanel" title="Add Episode"  bodyPadding="10">
+	<ext4:fieldset  title="Patient Details" collapsible="false">
+		<ext4:fieldDefaults labelWidth="120"/>
+		<ext4:displayfield id="CPpatFN" fieldLabel="Patient FirstName" value="*" />
+		<ext4:displayfield id="CPpatLN" fieldLabel="Patient Surname" value="*" />
+		<ext4:displayfield id="CPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+	</ext4:fieldset>
+	<ext4:displayfield id="EPID" fieldLabel="Episode Number" width="150" value="*"/>
+    <ext4:field type="datefield" id="EPdate" fieldLabel="Date" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" id="EPtime" fieldLabel="Time" width="200" value="*" format='H:i' />
+    <ext4:comboBox fieldLabel="Type" name="EPtype" forceSelection="true" width="200" value="*" />
+    <ext4:comboBox fieldLabel="Status" name="EPstat" forceSelection="true" width="200" value="*">
+		<ext4:listeners>
+			<ext4:listener change="function(combo,value) {if (value==2) {Ext.getCmp('EPdatC').show();Ext.getCmp('EPtimC').show();}}" />
+			<ext4:listener afterrender="function(cmp,obj) {if (cmp.value==2) {Ext.getCmp('EPdatC').show();Ext.getCmp('EPtimC').show();}}" />
+		</ext4:listeners>
+	</ext4:comboBox>
+	<ext4:field type="datefield" hidden="true" id="EPdatC" fieldlabel="Date closed" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" hidden="true" id="EPtimC" fieldLabel="Time closed" width="200" value="*" format="H:i" />
+	<ext4:displayfield id="CPdisp" width="300" height="100" value="*" />
+	<ext4:textfield id="EPauth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton id="subBsaveEP" text="Save" nextPage="SaveEpisode" addTo="SouthPanel" />
+	<ext4:listeners>
+		<ext4:listener afterrender="function(cmp,obj) {if (Ext.getCmp('EPstat').value==2) {Ext.getCmp('EPstat').setReadOnly(true);Ext.getCmp('EPstat').setFieldStyle('color:blue');Ext.getCmp('EPdatC').setReadOnly(true);Ext.getCmp('EPdatC').setFieldStyle('color:blue');Ext.getCmp('EPtimC').setReadOnly(true);Ext.getCmp('EPtimC').setFieldStyle('color:blue');Ext.getCmp('subBsaveEP').hide();Ext.getCmp('EPFormPanel').setTitle('Display Episode');}}" />
+	</ext4:listeners>
+
+</ext4:formPanel>
+</ext4:fragment>

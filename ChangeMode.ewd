@@ -1,0 +1,6 @@
+<ext4:fragment onBeforeRender="ChangeMode^LeedsPort" >
+<ext4:js at="bottom">
+	EdDispWin='<?= #EdDispWin ?>' ;
+</ext4:js>
+<ext4:panel  html="display mode changed " />
+</ext4:fragment>

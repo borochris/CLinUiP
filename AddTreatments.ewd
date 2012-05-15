@@ -1,0 +1,38 @@
+<ext4:fragment onBeforeRender="InitTreat^LeedsPort">
+<ext4:js at="top">
+	if (Ext.getCmp('TRFormPanel')!=undefined) {Ext.getCmp('TRFormPanel').destroy();};
+</ext4:js>
+<ext4:js at="bottom">
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('TRFormPanel').setTitle('Display Treatment');
+		Ext.getCmp('TRdate').setReadOnly(true);Ext.getCmp('TRdate').setFieldStyle('color:blue');
+		Ext.getCmp('TRtime').setReadOnly(true);Ext.getCmp('TRtime').setFieldStyle('color:blue');
+		Ext.getCmp('TRnote').setReadOnly(true);Ext.getCmp('TRnote').setFieldStyle('color:blue');
+		Ext.getCmp('TRauth').setReadOnly(true);Ext.getCmp('TRauth').setFieldStyle('color:blue');
+		Ext.getCmp('subBsaveTreat').hide();
+	}
+	if ('<?= #EditMode ?>'=="true") {
+		Ext.getCmp('EastPanel').show();
+	}
+	else {
+		Ext.getCmp('<?= #EdDispWin ?>').show();
+	};
+	
+</ext4:js>
+<ext4:formPanel id="TRFormPanel" title="Add Treatment"  bodyPadding="10">
+	<ext4:fieldset  title="Patient Details" collapsible="false">
+		<ext4:fieldDefaults labelWidth="120"/>
+		<ext4:displayfield id="CPpatFN" fieldLabel="Patient FirstName" value="*" />
+		<ext4:displayfield id="CPpatLN" fieldLabel="Patient Surname" value="*" />
+		<ext4:displayfield id="CPpatID" fieldLabel="Patient Identifier" width="150" value="*"/>
+		<ext4:displayfield id="CPepNO" fieldlabel="Episode" width="150" value="*"/>
+	</ext4:fieldset>
+	<ext4:displayfield id="TRID" fieldLabel="Treatment Number" width="150" value="*"/>
+    <ext4:field type="datefield" id="TRdate" fieldLabel="Date" width="200" value="*" format="d/m/Y" />
+	<ext4:field type="timefield" id="TRtime" fieldLabel="Time" width="200" value="*" format="24Hour" />
+    <ext4:textareafield grow="true" fieldLabel="Treatment" name="TRnote"  width="350" height="200" value="*" />
+	<ext4:textfield id="TRauth" fieldLabel="Author" allowBlank="false" value="*" />
+	<ext4:submitbutton id="subBsaveTreat" text="Save" nextPage="SaveTreatments" addTo="SouthPanel" />
+
+</ext4:formPanel>
+</ext4:fragment>
